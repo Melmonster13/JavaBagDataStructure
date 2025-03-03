@@ -1,32 +1,32 @@
 public class BagUsage {
     public static void main(String[] args) {
-        // Create a new bag instance
-        Bag<String> bag = new Bag<>();
+        // Create two bag instances
+        Bag<String> bag1 = new Bag<>();
+        Bag<String> bag2 = new Bag<>();
 
-        // Add items to include duplicates
-        bag.add("kitten");
-        bag.add("snake");
-        bag.add("kitten"); // Duplicate item
-        bag.add("dinosaur");
+        // Add items to bag1
+        bag1.add("kitten");
+        bag1.add("snake");
+        bag1.add("kitten"); // Duplicate item
+        bag1.add("dinosaur");
 
-        // Display initial bag state
-        System.out.println(bag);
+        // Add items to bag2
+        bag2.add("mouse");
+        bag2.add("fox");
+        bag2.add("kitten");
 
-        // Test contains() method
-        System.out.println("Contains snake? " + bag.contains("snake"));
-        System.out.println("Contains dog? " + bag.contains("dog"));
+        // Print bag sizes
+        System.out.println("Bag1 size: " + bag1.size());
+        System.out.println("Bag2 size: " + bag2.size());
 
-        // Test count() method with different items
-        System.out.println("Number of kittens: " + bag.count("kitten"));
-        System.out.println("Number of dinosaurs: " + bag.count("dinosaur"));
+        // Merge bag2 into bag1
+        bag1.merge(bag2);
+        System.out.println("\nBag1 and Bag2 merged:");
+        System.out.println(bag1);
 
-        // Test remove() method
-        bag.remove("kitten");
-        System.out.println("\nAfter removing one kitten:");
-        System.out.println(bag);
-
-        // Verify state after removal of item
-        System.out.println("Contains kitten? " + bag.contains("kitten"));
-        System.out.println("Count of kittens: " + bag.count("kitten"));
+        // Get distinct items
+        Bag<String> distinctBag = bag1.distinct();
+        System.out.println("\nDistinct items in Bag1:");
+        System.out.println(distinctBag);
     }
 }

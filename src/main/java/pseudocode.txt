@@ -5,46 +5,53 @@ Class Bag<T>
     Constructor():
         elements = new HashMap
 
-      add(item):
+    add(item):
         elements[item] = elements.getOrDefault(item, 0) + 1
 
-      remove(item):
-        count = elements[item]
-        if count exists:
-            if count == 1:
-                remove item from elements
-               else:
-                elements[item] = count - 1
+    size():
+        totalSize = 0
+        for each count in elements:
+            totalSize += count
+        return totalSize
 
-      contains(item):
-        return elements.containsKey(item)
+    merge(otherBag):
+        for each (item, count) in otherBag.elements:
+            elements[item] = elements.getOrDefault(item, 0) + count
 
-      count(item):
-        return elements.getOrDefault(item, 0)
+    distinct():
+        newBag = new Bag<T>
+            for each item in elements:
+                newBag.add(item)
+            return newBag
 
-      toString():
+    toString():
         result = "Bag contents: "
         for each (item, count) in elements:
             append "item(count) " to result
         return result
 
 // BagUsage.java pseudocode
-Class BagDemo
+Class BagUsage
     main():
-        bag = new Bag<String>
+        bag1 = new Bag<String>
+        bag2 = new Bag<String>
 
-        add "kitten" to bag
-        add "snake" to bag
-        add "kitten" to bag
-        add "dinosaur" to bag
+        add "kitten" to bag1
+        add "snake" to bag1
+        add "kitten" to bag1
+        add "dinosaur" to bag1
 
-        print bag
-        print contains("snake")
-        print contains("dog")
-        print count("kitten")
-        print count("dinosaur")
+        add "mouse" to bag2
+        add "fox" to bag2
+        add "kitten" to bag2
 
-        remove "kitten" from bag
-        print bag
-        print contains("kitten")
-        print count("kitten")
+        print "Bag1 size: " + size of bag1
+        print "Bag2 size: " + size of bag2
+
+        merge bag2 into bag1
+        print "\nBag1 and Bag2 merged:"
+        print bag1
+
+        distinctBag = bag1.distinct()
+        print "\nDistinct items in Bag1:"
+        print distinctBag

@@ -15,28 +15,29 @@ public class Bag<T> {
         elements.put(item, elements.getOrDefault(item, 0) + 1);
     }
 
-    // Remove one occurrence of item
-    public void remove(T item) {
-        Integer count = elements.get(item);
-        if (count != null) {
-            if (count == 1) {
-                // Remove item completely if it's last occurrence
-                elements.remove(item);
-            } else {
-                // Decrement count if multiple occurrences exist
-                elements.put(item, count - 1);
-            }
+    // Return total number of elements in bag including duplicates
+    public int size() {
+        int totalSize = 0;
+        for (int count : elements.values()) {
+            totalSize += count;
+        }
+        return totalSize;
+    }
+
+    // Merge another bag into current bag
+    public void merge(Bag<T> otherBag) {
+        for (Map.Entry<T, Integer> entry : otherBag.elements.entrySet()) {
+            elements.put(entry.getKey(), elements.getOrDefault(entry.getKey(), 0) + entry.getValue());
         }
     }
 
-    // Check if item is in bag
-    public boolean contains(T item) {
-        return elements.containsKey(item);
-    }
-
-    // Get count of item occurrences
-    public int count(T item) {
-        return elements.getOrDefault(item, 0);
+    // Return new bag only containing distinct elements
+    public Bag<T> distinct() {
+        Bag<T> distinctBag = new Bag<>();
+        for (T item : elements.keySet()) {
+            distinctBag.add(item);
+        }
+        return distinctBag;
     }
 
     // Format the bag contents as string with counts
